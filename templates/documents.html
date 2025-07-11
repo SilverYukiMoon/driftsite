@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Official Documents of Aurospan</h1>
+<ul>
+  {% for doc in documents %}
+    <li>
+      <a href="/documents/{{ doc.id }}"><strong>{{ doc.title }}</strong></a><br />
+      <em>{{ doc.description }}</em>
+    </li>
+  {% endfor %}
+</ul>
+{% endblock %}

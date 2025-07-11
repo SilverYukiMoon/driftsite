@@ -1,0 +1,162 @@
+{% extends "base.html" %}
+
+{% block title %}Permit Application - Corsair Council{% endblock %}
+
+{% block content %}
+<h1>Permit Application Form</h1>
+<p><em>Application for Issuance of Official Permit under the Laws of Aurospan</em></p>
+
+<form method="post" action="/submit-permit" id="permit-form" enctype="multipart/form-data">
+  <fieldset>
+    <legend>SECTION 1: APPLICANT INFORMATION</legend>
+    
+    <label for="full_name">Full Pirate Name:</label><br>
+    <input type="text" id="full_name" name="full_name" required><br><br>
+    
+    <label for="alias">Alias (if applicable):</label><br>
+    <input type="text" id="alias" name="alias"><br><br>
+    
+    <label for="crew">Affiliated Crew or Faction:</label><br>
+    <input type="text" id="crew" name="crew"><br><br>
+    
+    <label for="contact_address">Contact Address (Port, Discord or Ship):</label><br>
+    <input type="text" id="contact_address" name="contact_address"><br><br>
+    
+    <label>Preferred Method of Correspondence:</label><br>
+    <input type="radio" id="owl_post" name="preferred_contact" value="Owl Post" required>
+    <label for="owl_post">Owl Post</label><br>
+    <input type="radio" id="magical_message" name="preferred_contact" value="Magical Message">
+    <label for="magical_message">Magical Message</label><br>
+    <input type="radio" id="carrier_parrot" name="preferred_contact" value="Carrier Parrot">
+    <label for="carrier_parrot">Carrier Parrot</label><br>
+    <input type="radio" id="smoke_signals" name="preferred_contact" value="Smoke Signals">
+    <label for="smoke_signals">Smoke Signals</label><br>
+    <input type="radio" id="discord" name="preferred_contact" value="Discord">
+    <label for="discord">Discord</label><br>
+    <input type="radio" id="other_corr" name="preferred_contact" value="Other">
+    <label for="other_corr">Other:</label>
+    <input type="text" id="other_corr_text" name="other_corr_text" placeholder="Please specify"><br><br>
+  </fieldset>
+
+  <fieldset>
+    <legend>SECTION 2: PERMIT TYPE REQUESTED</legend>
+    <p>(Please select one)</p>
+
+    <input type="radio" id="letter_of_marque" name="permit_type" value="Letter of Marque" required>
+    <label for="letter_of_marque">Letter of Marque</label><br>
+    
+    <input type="radio" id="plunder_license" name="permit_type" value="Plunder License">
+    <label for="plunder_license">Plunder License</label><br>
+    
+    <input type="radio" id="magic_usage_permit" name="permit_type" value="Magic Usage Permit">
+    <label for="magic_usage_permit">Magic Usage Permit</label><br>
+    
+    <input type="radio" id="hat_registration_certificate" name="permit_type" value="Hat Registration Certificate">
+    <label for="hat_registration_certificate">Hat Registration Certificate</label><br>
+    
+    <input type="radio" id="trade_permit" name="permit_type" value="Trade Permit">
+    <label for="trade_permit">Trade Permit</label><br>
+    
+    <input type="radio" id="explosive_handling_permit" name="permit_type" value="Explosive Handling Permit">
+    <label for="explosive_handling_permit">Explosive Handling Permit</label><br>
+    
+    <input type="radio" id="ship_registration_and_classification" name="permit_type" value="Ship Registration and Classification">
+    <label for="ship_registration_and_classification">Ship Registration and Classification</label><br>
+    
+    <input type="radio" id="crew_manifest_approval" name="permit_type" value="Crew Manifest Approval">
+    <label for="crew_manifest_approval">Crew Manifest Approval</label><br>
+    
+    <input type="radio" id="navigation_license" name="permit_type" value="Navigation License">
+    <label for="navigation_license">Navigation License</label><br>
+    
+    <input type="radio" id="diplomatic_envoy_pass" name="permit_type" value="Diplomatic Envoy Pass">
+    <label for="diplomatic_envoy_pass">Diplomatic Envoy Pass</label><br>
+    
+    <input type="radio" id="contract_binding_seal_permit" name="permit_type" value="Contract Binding Seal Permit">
+    <label for="contract_binding_seal_permit">Contract Binding Seal Permit</label><br>
+    
+    <input type="radio" id="smuggling_exemption_certificate" name="permit_type" value="Smuggling Exemption Certificate">
+    <label for="smuggling_exemption_certificate">Smuggling Exemption Certificate</label><br>
+    
+    <input type="radio" id="repair_and_docking_permit" name="permit_type" value="Repair and Docking Permit">
+    <label for="repair_and_docking_permit">Repair and Docking Permit</label><br>
+    
+    <input type="radio" id="harbor_trade_license" name="permit_type" value="Harbor Trade License">
+    <label for="harbor_trade_license">Harbor Trade License</label><br>
+    
+    <input type="radio" id="salvage_operation_permit" name="permit_type" value="Salvage Operation Permit">
+    <label for="salvage_operation_permit">Salvage Operation Permit</label><br>
+    
+    <input type="radio" id="monster_control_permit" name="permit_type" value="Monster Control Permit">
+    <label for="monster_control_permit">Monster Control Permit</label><br>
+    
+    <input type="radio" id="magical_artifact_license" name="permit_type" value="Magical Artifact License">
+    <label for="magical_artifact_license">Magical Artifact License</label><br>
+    
+    <input type="radio" id="communications_license" name="permit_type" value="Communications License">
+    <label for="communications_license">Communications License</label><br>
+    
+    <input type="radio" id="duel_authorization_certificate" name="permit_type" value="Duel Authorization Certificate">
+    <label for="duel_authorization_certificate">Duel Authorization Certificate</label><br>
+    
+    <input type="radio" id="waste_disposal_permit" name="permit_type" value="Waste Disposal Permit">
+    <label for="waste_disposal_permit">Waste Disposal Permit</label><br>
+    
+    <input type="radio" id="fog_navigation_exemption" name="permit_type" value="Fog Navigation Exemption">
+    <label for="fog_navigation_exemption">Fog Navigation Exemption</label><br>
+    
+    <input type="radio" id="currency_exchange_license" name="permit_type" value="Currency Exchange License">
+    <label for="currency_exchange_license">Currency Exchange License</label><br>
+    
+    <input type="radio" id="petition_filing_permit" name="permit_type" value="Petition Filing Permit">
+    <label for="petition_filing_permit">Petition Filing Permit</label><br>
+    
+    <input type="radio" id="embassy_establishment_permit" name="permit_type" value="Embassy Establishment Permit">
+    <label for="embassy_establishment_permit">Embassy Establishment Permit</label><br>
+    
+    <input type="radio" id="parade_and_ceremony_permit" name="permit_type" value="Parade and Ceremony Permit">
+    <label for="parade_and_ceremony_permit">Parade and Ceremony Permit</label><br>
+    
+    <input type="radio" id="hat_dyeing_and_modification_license" name="permit_type" value="Hat Dyeing and Modification License">
+    <label for="hat_dyeing_and_modification_license">Hat Dyeing and Modification License</label><br>
+    
+    <input type="radio" id="unauthorized_singing_permit" name="permit_type" value="Unauthorized Singing Permit">
+    <label for="unauthorized_singing_permit">Unauthorized Singing Permit</label><br>
+    
+    <input type="radio" id="parrot_ownership_permit" name="permit_type" value="Parrot Ownership Permit">
+    <label for="parrot_ownership_permit">Parrot Ownership Permit</label><br>
+    
+    <input type="radio" id="other_permit" name="permit_type" value="Other">
+    <label for="other_permit">Other (please specify):</label>
+    <input type="text" id="other_permit_text" name="other_permit_text" placeholder="Specify other permit"><br><br>
+  </fieldset>
+
+  <fieldset>
+    <legend>SECTION 3: PERMIT DETAILS</legend>
+
+    <label for="permit_scope">Describe the scope, location, dates, and any special conditions of the permit (attach additional pages if necessary):</label><br>
+    <textarea id="permit_scope" name="permit_scope" rows="6" cols="60"></textarea><br><br>
+
+    <label for="supporting_files">Upload supporting documents (maps, licenses, etc.):</label><br>
+    <input type="file" id="supporting_files" name="supporting_files" multiple><br><br>
+  </fieldset>
+
+  <fieldset>
+    <legend>SECTION 4: DECLARATION AND SIGNATURE</legend>
+    <p>
+      I hereby declare that all information provided is true and accurate to the best of my knowledge. I understand that any false statements or omissions may result in denial, revocation, or legal penalties under the laws of Aurospan.
+    </p>
+
+    <label for="applicant_signature">Applicant Signature:</label><br>
+    <input type="text" id="applicant_signature" name="applicant_signature" required><br><br>
+
+    <label for="application_date">Date:</label><br>
+    <input type="date" id="application_date" name="application_date" required><br><br>
+  </fieldset>
+
+  <input type="submit" value="Submit Application">
+</form>
+
+<a href="/permits" style="color: #004085; text-decoration: none;">Back to Permits List</a>
+
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}Laws - Corsair Council{% endblock %}
+
+{% block content %}
+<h1>Current Pirate Laws</h1>
+
+<ul>
+  {% for law in laws %}
+    <li>
+      <a href="/laws/{{ law.id }}" style="color: #004085; text-decoration: none;">
+        {{ law.title }}
+      </a>
+    </li>
+  {% endfor %}
+</ul>
+
+<a href="/" style="color: #004085; text-decoration: none;">Back to Home</a>
+{% endblock %}

@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <style>
+    @font-face {
+      font-family: 'Freebooter';
+      src: url('/static/fonts/Freebooter.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+    .treaty-container {
+      font-family: 'Freebooter', serif !important;
+    }
+    .treaty-container h1 {
+      color: white;
+    }
+  </style>
+
+  <div class="treaty-container" style="max-width: 900px; margin: auto; padding: 30px; background: #fff; border: 1px solid #ccc; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
+
+    <header style="text-align: center; margin-bottom: 40px;">
+      <h1>{{ document.title }}</h1>
+      <p><strong>Date Ratified:</strong> 
+        {% if document.ratification_date %}
+          {{ document.ratification_date.strftime('%B %d, %Y') }}
+        {% else %}
+          N/A
+        {% endif %}
+      </p>
+      <p><strong>Parties Involved:</strong> 
+        {% if document.parties %}
+          {{ document.parties | join(', ') }}
+        {% else %}
+          N/A
+        {% endif %}
+      </p>
+    </header>
+
+    <section class="treaty-text" style="white-space: pre-wrap; line-height: 1.6; font-size: 24px; border-top: 1px solid #ddd; border-bottom: 1px solid #ddd; padding: 20px 0;">
+      {{ document.text | safe }}
+    </section>
+
+    <footer style="margin-top: 50px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 20px;">
+      <div>
+        <p><strong>Signed By:</strong></p>
+        {% if document.signatories %}
+          {% for signatory in document.signatories %}
+            <p>{{ signatory.name }} — {{ signatory.title }}</p>
+          {% endfor %}
+        {% else %}
+          <p>None</p>
+        {% endif %}
+      </div>
+      <div style="text-align: center; min-width: 200px;">
+        <p><strong>Official Seal:</strong></p>
+        <p style="font-size: 3rem; line-height: 1;">
+          {{ document.seal or "_____________________________" }}
+        </p>
+      </div>
+    </footer>
+
+    <a href="/documents" style="display: block; margin-top: 40px; text-decoration: none; color: #007BFF;">← Back to Documents List</a>
+  </div>
+{% endblock %}

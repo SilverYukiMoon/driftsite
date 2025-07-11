@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}Application Detail - {{ app.full_name }}{% endblock %}
+
+{% block content %}
+  <h1>Permit Application - {{ app.full_name }}</h1>
+  <p><strong>Submitted:</strong> {{ app.application_date.strftime('%Y-%m-%d %H:%M') }}</p>
+
+  <div style="margin-top: 1em;">
+    <p><strong>Alias:</strong> {{ app.alias or '—' }}</p>
+    <p><strong>Crew:</strong> {{ app.crew or '—' }}</p>
+    <p><strong>Contact Address:</strong> {{ app.contact_address or '—' }}</p>
+    <p><strong>Preferred Contact:</strong> {{ app.preferred_contact or '—' }}</p>
+    <p><strong>Other Correspondence:</strong> {{ app.other_corr_text or '—' }}</p>
+    <p><strong>Permit Type:</strong> {{ app.permit_type }}</p>
+    <p><strong>Other Permit Text:</strong> {{ app.other_permit_text or '—' }}</p>
+    <p><strong>Details:</strong><br>{{ app.permit_details or '—' }}</p>
+    <p><strong>Signature:</strong> {{ app.applicant_signature }}</p>
+    <p><strong>Files:</strong></p>
+    {% if app.supporting_files %}
+      <ul>
+        {% for file in app.supporting_files %}
+          <li><a href="/uploaded_permit_files/{{ file }}" target="_blank">{{ file }}</a></li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>None</p>
+    {% endif %}
+  </div>
+
+  <a href="/admin" style="display: inline-block; margin-top: 2em;">← Back to All Applications</a>
+{% endblock %}

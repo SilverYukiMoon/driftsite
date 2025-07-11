@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}Permit Submitted - Corsair Council{% endblock %}
+
+{% block content %}
+  <h1>Application Submitted</h1>
+  <p><strong>Your permit request has been logged with the Corsair Council.</strong></p>
+
+  <div style="margin-top: 1em;">
+    <p><strong>Name:</strong> {{ full_name }}</p>
+    <p><strong>Permit Type:</strong> {{ permit_type }}</p>
+    {% if crew %}
+    <p><strong>Crew:</strong> {{ crew }}</p>
+    {% endif %}
+    {% if supporting_files %}
+    <p><strong>Files Uploaded:</strong></p>
+    <ul>
+      {% for file in supporting_files %}
+      <li>{{ file }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+  </div>
+
+  <p style="margin-top: 2em;">The Corsair Council will review your request and respond through your preferred correspondence method.</p>
+  <a href="/permit" style="display: inline-block; margin-top: 1em;">Submit another application</a>
+{% endblock %}

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{% block title %}Corsair Council Permit Office{% endblock %}</title>
+  <style>
+    /* Load Freebooter font - normal only */
+    @font-face {
+      font-family: 'Freebooter';
+      src: url('/static/fonts/Freebooter.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    /* Base styles */
+    body {
+      font-family: 'Freebooter', cursive, serif;
+      font-size: 24px;
+      color: #222;
+      background-color: #f4f7f9;
+      margin: 0;
+      padding: 0;
+    }
+    a {
+      color: #004085;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+
+    /* Header */
+    header {
+      background-color: #0b3d91;
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 3px solid #cfa12b;
+    }
+    header .logo {
+      font-weight: normal;
+      font-size: 1.8rem;
+      letter-spacing: 2px;
+      font-family: 'Freebooter', cursive, serif;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    /* Star SVG styling */
+    .logo svg {
+      fill: #cfa12b;
+      width: 24px;
+      height: 24px;
+    }
+    nav ul {
+      list-style: none;
+      margin: 0; padding: 0;
+      display: flex;
+      gap: 1.5rem;
+    }
+    nav ul li {
+      padding: 0.3rem 0;
+    }
+
+    /* Main content */
+    main {
+      max-width: 960px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+    main h1 {
+      font-family: 'Freebooter', cursive, serif;
+      font-weight: normal;
+      color: #0b3d91;
+      margin-bottom: 0.5rem;
+      border-bottom: 3px solid #cfa12b;
+      padding-bottom: 0.5rem;
+      font-size: 2.4rem;
+    }
+    main p {
+      font-size: 1.4rem;
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+    }
+
+    /* Footer */
+    footer {
+      background-color: #0b3d91;
+      color: white;
+      text-align: center;
+      padding: 1rem 2rem;
+      margin-top: 3rem;
+      font-size: 1rem;
+      border-top: 3px solid #cfa12b;
+      font-family: 'Freebooter', cursive, serif;
+      font-weight: normal;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+      <path d="M12 2L14.09 8.26L20.97 8.27L15.45 12.97L17.54 19.23L12 14.53L6.46 19.23L8.55 12.97L3.03 8.27L9.91 8.26L12 2Z"/>
+    </svg>
+    The Corsair Council
+  </div>
+  <nav>
+    <ul>
+      <li><a href="/laws">Laws</a></li>
+      <li><a href="/permits">Permits</a></li>
+      <li><a href="/permit">Apply for Permit</a></li>
+      <li><a href="/documents">Documents</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+  {% block content %}
+  <!-- Page-specific content goes here -->
+  {% endblock %}
+</main>
+
+<footer>
+  &copy; 2025 Corsair Council. All rights reserved.
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}Available Permits - Corsair Council{% endblock %}
+
+{% block content %}
+<main>
+  <h1>Available Permits</h1>
+  <p>Browse the types of permits you can apply for through the Corsair Council.</p>
+
+  <section class="permit-list">
+    {% for permit in permits %}
+    <article class="permit-card">
+      <h2>{{ permit.name }}</h2>
+      <p><strong>Description:</strong> {{ permit.description }}</p>
+      <p><strong>Fee:</strong> {{ permit.fee }}</p>
+      <p><strong>Application:</strong> {{ permit.application }}</p>
+      <p><em>{{ permit.funny_note }}</em></p>
+      <a href="/permit?type={{ permit.name|urlencode }}">Apply for this permit</a>
+    </article>
+    {% endfor %}
+  </section>
+</main>
+
+<style>
+  .permit-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+  .permit-card {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 1rem 1.5rem;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  }
+  .permit-card h2 {
+    color: #cfa12b;
+    margin-top: 0;
+  }
+  .permit-card a {
+    display: inline-block;
+    margin-top: 0.5rem;
+    color: #0b3d91;
+    font-weight: normal;
+    font-size: 1.1rem;
+  }
+</style>
+{% endblock %}

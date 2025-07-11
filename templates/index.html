@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}Corsair Council Permit Office{% endblock %}
+
+{% block content %}
+<h1>Welcome to the Corsair Council Permit Office</h1>
+<p>
+  This is the official site for all legal forms, permits, and regulations governing piracy in Aurospan.
+  Here you can learn about current laws, submit permit applications, and browse official documents.
+</p>
+
+<div class="info-cards" style="display: flex; gap: 1.5rem; flex-wrap: wrap;">
+  <div class="info-card" style="background: white; border: 1px solid #ddd; border-radius: 6px; padding: 1rem 1.5rem; flex: 1 1 280px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); transition: box-shadow 0.2s ease-in-out;">
+    <h2 style="color: #cfa12b; font-family: 'Freebooter', cursive, serif; font-weight: normal; margin-bottom: 0.6rem; font-size: 1.8rem; margin-top: 0;">Current Laws</h2>
+    <p>Review the pirate laws and regulations currently in effect.</p>
+    <a href="/laws" style="display: inline-block; margin-top: 0.5rem; color: #0b3d91; font-weight: normal; font-size: 1.2rem;">View Laws</a>
+  </div>
+  <div class="info-card" style="background: white; border: 1px solid #ddd; border-radius: 6px; padding: 1rem 1.5rem; flex: 1 1 280px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); transition: box-shadow 0.2s ease-in-out;">
+    <h2 style="color: #cfa12b; font-family: 'Freebooter', cursive, serif; font-weight: normal; margin-bottom: 0.6rem; font-size: 1.8rem; margin-top: 0;">Permit Applications</h2>
+    <p>Start a new application or check the status of your existing permits.</p>
+    <a href="/permit" style="display: inline-block; margin-top: 0.5rem; color: #0b3d91; font-weight: normal; font-size: 1.2rem;">Apply Now</a>
+  </div>
+  <div class="info-card" style="background: white; border: 1px solid #ddd; border-radius: 6px; padding: 1rem 1.5rem; flex: 1 1 280px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); transition: box-shadow 0.2s ease-in-out;">
+    <h2 style="color: #cfa12b; font-family: 'Freebooter', cursive, serif; font-weight: normal; margin-bottom: 0.6rem; font-size: 1.8rem; margin-top: 0;">Official Documents</h2>
+    <p>Browse treaties, contracts, and legal rulings recognized by the Council.</p>
+    <a href="/documents" style="display: inline-block; margin-top: 0.5rem; color: #0b3d91; font-weight: normal; font-size: 1.2rem;">Browse Documents</a>
+  </div>
+  <div class="info-card" style="background: white; border: 1px solid #ddd; border-radius: 6px; padding: 1rem 1.5rem; flex: 1 1 280px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); transition: box-shadow 0.2s ease-in-out;">
+    <h2 style="color: #cfa12b; font-family: 'Freebooter', cursive, serif; font-weight: normal; margin-bottom: 0.6rem; font-size: 1.8rem; margin-top: 0;">Permits</h2>
+    <p>Explore all issuable permits.</p>
+    <a href="/permits" style="display: inline-block; margin-top: 0.5rem; color: #0b3d91; font-weight: normal; font-size: 1.2rem;">View Permits</a>
+  </div>
+</div>
+{% endblock %}

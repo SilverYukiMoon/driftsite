@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}Admin - Permit Applications{% endblock %}
+
+{% block content %}
+  <h1>Permit Applications - Admin Panel</h1>
+
+  <p>Logged in as: <strong>{{ user.username }}#{{ user.discriminator }}</strong></p>
+  <a href="/logout" style="color: red; text-decoration: none;">Logout</a>
+
+  {% if applications %}
+    <ul style="list-style: none; padding: 0;">
+      {% for app in applications %}
+        <li style="margin-bottom: 0.75em;">
+          <a href="/admin/app/{{ app.id }}" style="text-decoration: none; color: #007BFF;">
+            {{ app.full_name }} — {{ app.application_date.strftime('%Y-%m-%d %H:%M') }}
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No permit applications found.</p>
+  {% endif %}
+{% endblock %}

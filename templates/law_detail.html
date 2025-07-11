@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block title %}{{ law.title }} - Corsair Council{% endblock %}
+
+{% block content %}
+  <h1>{{ law.title }}</h1>
+  {% for section, text in law.sections.items() %}
+    <h3>{{ section }}</h3>
+    <p>{{ text }}</p>
+  {% endfor %}
+  <a href="/laws" style="color: #004085; text-decoration: none;">Back to Laws</a>
+{% endblock %}
