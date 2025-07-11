@@ -17,6 +17,8 @@ load_dotenv()
 
 DISCORD_BOT_TOKEN = os.getenv("DISCORD_BOT_TOKEN")
 
+os.makedirs("uploaded_permit_files", exist_ok=True)
+
 app = FastAPI()
 
 from fastapi.staticfiles import StaticFiles
