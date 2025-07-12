@@ -1,7 +1,7 @@
 from fastapi import FastAPI, Request, UploadFile, File, Form, HTTPException, Depends, status
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
-from fastapi.responses import RedirectResponse
+from fastapi.responses import RedirectResponse, HTMLResponse
 from sqlalchemy import create_engine, insert, select
 from database import Base, DATABASE_URL, database, PermitApplication
 from typing import List, Optional
@@ -16,24 +16,27 @@ from dotenv import load_dotenv
 load_dotenv()
 
 DISCORD_BOT_TOKEN = os.getenv("DISCORD_BOT_TOKEN")
+DISCORD_CLIENT_ID = os.getenv("DISCORD_CLIENT_ID")
+DISCORD_CLIENT_SECRET = os.getenv("DISCORD_CLIENT_SECRET")
+DISCORD_REDIRECT_URI = os.getenv("DISCORD_REDIRECT_URI")
+DISCORD_API_BASE = "https://discord.com/api"
+DISCORD_GUILD_ID = os.getenv("DISCORD_GUILD_ID")
+
+ALLOWED_ROLE_IDS = {
+    "1362205859215839322",
+    "1362212187145506956"
+}
 
 os.makedirs("uploaded_permit_files", exist_ok=True)
 
 app = FastAPI()
 
-from fastapi.staticfiles import StaticFiles
-
 app.mount("/uploaded_permit_files", StaticFiles(directory="uploaded_permit_files"), name="uploaded_permit_files")
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 app.add_middleware(SessionMiddleware, secret_key=os.getenv("SESSION_SECRET_KEY", "your_secret_key_here"))
 
-DISCORD_CLIENT_ID = os.getenv("DISCORD_CLIENT_ID")
-DISCORD_CLIENT_SECRET = os.getenv("DISCORD_CLIENT_SECRET")
-DISCORD_REDIRECT_URI = os.getenv("DISCORD_REDIRECT_URI")
-DISCORD_API_BASE = "https://discord.com/api"
-
 templates = Jinja2Templates(directory="templates")
-app.mount("/static", StaticFiles(directory="static"), name="static")
 
 # Sync DB engine for creating tables
 SYNC_DATABASE_URL = DATABASE_URL.replace("+aiosqlite", "")
@@ -48,10 +51,9 @@ async def startup():
 async def shutdown():
     await database.disconnect()
 
-# ----- Discord OAuth Helpers -----
+# ----- Auth Helpers -----
 
 async def get_discord_user(session: dict):
-    """Return user info if logged in, else None"""
     access_token = session.get("access_token")
     if not access_token:
         return None
@@ -61,8 +63,7 @@ async def get_discord_user(session: dict):
         user_resp = await client.get(f"{DISCORD_API_BASE}/users/@me", headers=headers)
         if user_resp.status_code != 200:
             return None
-        user_data = user_resp.json()
-        return user_data
+        return user_resp.json()
 
 def require_login(request: Request):
     user = request.session.get("user")
@@ -70,7 +71,16 @@ def require_login(request: Request):
         return RedirectResponse(url="/login", status_code=status.HTTP_303_SEE_OTHER)
     return user
 
-# ----- Routes -----
+def require_admin_roles(request: Request):
+    user = request.session.get("user")
+    if not user:
+        raise HTTPException(status_code=401, detail="Not logged in")
+    roles = set(user.get("roles", []))
+    if not ALLOWED_ROLE_IDS.intersection(roles):
+        raise HTTPException(status_code=403, detail="Insufficient permissions")
+    return user
+
+# ----- Auth Routes -----
 
 @app.get("/login")
 async def login():
@@ -78,9 +88,9 @@ async def login():
         "client_id": DISCORD_CLIENT_ID,
         "redirect_uri": DISCORD_REDIRECT_URI,
         "response_type": "code",
-        "scope": "identify"
+        "scope": "identify guilds.members.read"
     }
-    url = f"https://discord.com/api/oauth2/authorize?" + "&".join(f"{k}={v}" for k,v in params.items())
+    url = f"{DISCORD_API_BASE}/oauth2/authorize?" + "&".join(f"{k}={v}" for k, v in params.items())
     return RedirectResponse(url)
 
 @app.get("/auth/discord/callback")
@@ -94,27 +104,23 @@ async def callback(request: Request, code: Optional[str] = None):
         "grant_type": "authorization_code",
         "code": code,
         "redirect_uri": DISCORD_REDIRECT_URI,
-        "scope": "identify"
+        "scope": "identify guilds.members.read"
     }
     headers = {"Content-Type": "application/x-www-form-urlencoded"}
 
     async with httpx.AsyncClient() as client:
-        # Get access token
         token_resp = await client.post(f"{DISCORD_API_BASE}/oauth2/token", data=data, headers=headers)
         if token_resp.status_code != 200:
             raise HTTPException(status_code=400, detail="Failed to get token from Discord")
         token_json = token_resp.json()
         access_token = token_json["access_token"]
 
-        # Get user info
         user_resp = await client.get(f"{DISCORD_API_BASE}/users/@me", headers={"Authorization": f"Bearer {access_token}"})
         if user_resp.status_code != 200:
             raise HTTPException(status_code=400, detail="Failed to get user info from Discord")
-        user_json = user_resp.json()  # **This is where user_json is defined**
+        user_json = user_resp.json()
 
     user_id = user_json["id"]
-    guild_id = os.getenv("DISCORD_GUILD_ID")
-    admin_role_id = os.getenv("DISCORD_ADMIN_ROLE_ID")
     bot_token = os.getenv("DISCORD_BOT_TOKEN")
 
     headers = {
@@ -122,32 +128,25 @@ async def callback(request: Request, code: Optional[str] = None):
         "Content-Type": "application/json"
     }
 
-    # Use the bot token to get guild member info for the user
     async with httpx.AsyncClient() as client:
         guild_member_resp = await client.get(
-            f"{DISCORD_API_BASE}/guilds/{guild_id}/members/{user_id}",
+            f"{DISCORD_API_BASE}/guilds/{DISCORD_GUILD_ID}/members/{user_id}",
             headers=headers
         )
 
     if guild_member_resp.status_code != 200:
-        # User not in guild or some error, redirect to login or error page
         return RedirectResponse(url="/login")
 
     guild_member_json = guild_member_resp.json()
     roles = guild_member_json.get("roles", [])
 
-    if admin_role_id not in roles:
-        # User lacks required admin role
-        return RedirectResponse(url="/login")
-
-    # Save user info and token in session
     request.session["access_token"] = access_token
     request.session["user"] = {
         "id": user_json["id"],
         "username": user_json["username"],
         "discriminator": user_json["discriminator"],
         "avatar": user_json.get("avatar"),
-        "roles": roles  # optional: store roles
+        "roles": roles
     }
 
     return RedirectResponse(url="/admin")
@@ -157,7 +156,35 @@ async def logout(request: Request):
     request.session.clear()
     return RedirectResponse(url="/")
 
-# Permit submission endpoint (unchanged except safe file saving)
+# ----- Admin Dashboard -----
+
+@app.get("/admin/dashboard", response_class=HTMLResponse)
+async def admin_dashboard(request: Request, user: dict = Depends(require_admin_roles)):
+    return templates.TemplateResponse("admin_dashboard.html", {
+        "request": request,
+        "user": user
+    })
+
+@app.post("/admin/server/start", dependencies=[Depends(require_admin_roles)])
+async def start_server():
+    success = start_tickhosting_server()
+    return "Server started!" if success else "Failed to start server."
+
+@app.post("/admin/server/stop", dependencies=[Depends(require_admin_roles)])
+async def stop_server():
+    success = stop_tickhosting_server()
+    return "Server stopped!" if success else "Failed to stop server."
+
+def start_tickhosting_server():
+    print("Starting server... (replace with real logic)")
+    return True
+
+def stop_tickhosting_server():
+    print("Stopping server... (replace with real logic)")
+    return True
+
+# ----- Permit Submission -----
+
 @app.post("/submit-permit")
 async def submit_permit(
     request: Request,
@@ -185,7 +212,7 @@ async def submit_permit(
                 file_path = os.path.join("uploaded_permit_files", unique_filename)
                 with open(file_path, "wb") as f:
                     f.write(await upload.read())
-                saved_files.append(unique_filename)  # store unique filename
+                saved_files.append(unique_filename)
 
     supporting_files_json = json.dumps(saved_files) if saved_files else None
 
@@ -219,7 +246,8 @@ async def submit_permit(
         "supporting_files": saved_files
     })
 
-# Admin page - list permit applications - protected by Discord login
+# ----- Admin View Applications -----
+
 @app.get("/admin")
 async def admin_page(request: Request):
     user = request.session.get("user")
@@ -229,11 +257,9 @@ async def admin_page(request: Request):
     query = select(PermitApplication).order_by(PermitApplication.application_date.desc())
     rows = await database.fetch_all(query)
 
-    # Convert JSON strings in supporting_files to Python lists
     applications = []
     for row in rows:
-        app_dict = dict(row)  # convert SQLAlchemy RowProxy to dict
-
+        app_dict = dict(row)
         if app_dict.get("supporting_files"):
             try:
                 app_dict["supporting_files"] = json.loads(app_dict["supporting_files"])
@@ -241,7 +267,6 @@ async def admin_page(request: Request):
                 app_dict["supporting_files"] = []
         else:
             app_dict["supporting_files"] = []
-
         applications.append(app_dict)
 
     return templates.TemplateResponse("admin.html", {
@@ -263,7 +288,6 @@ async def view_application(request: Request, application_id: int):
         raise HTTPException(status_code=404, detail="Application not found")
 
     app_dict = dict(app_data)
-
     raw_files = app_dict.get("supporting_files")
     if raw_files:
         try:
