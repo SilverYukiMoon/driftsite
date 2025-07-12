@@ -482,7 +482,7 @@ This charter is binding upon all signatories and shall be renewed every ten year
             {"name": "Captain Redbeard", "title": "Council Representative"},
             {"name": "Governor Thalia Valderon", "title": "Kingdom of Valderon"}
         ],
-        "seal": "⚓️🏴‍☠️"
+        "seal": ""
     },
     {
         "id": "letters-of-marque-and-reprisal",
@@ -502,7 +502,7 @@ Clause 4: All disputes concerning letters shall be brought before the Maritime A
             {"name": "Admiral Lorna", "title": "Council Seal Bearer"},
             {"name": "Captain Silverfin", "title": "Recipient Crew Leader"}
         ],
-        "seal": "📜✒️"
+        "seal": ""
     },
     {
         "id": "sovereign-pirate-accord",
@@ -523,7 +523,7 @@ Section 4: Enforces shared taxation protocols on goods traded through neutral po
             {"name": "Merchant Lord Velos", "title": "Merchant States Consortium"},
             {"name": "Archmage Thallis", "title": "Arcane Guild Council"}
         ],
-        "seal": "🤝🗡️"
+        "seal": ""
     },
     {
         "id": "councils-edicts",
@@ -542,7 +542,7 @@ Edict 004: Clarification on tax rates for magical artifacts.""",
         "signatories": [
             {"name": "Council Chairwoman Maelra", "title": "The Corsair Council"}
         ],
-        "seal": "⚖️📜"
+        "seal": ""
     },
     {
         "id": "treaty-of-red-tape",
@@ -562,7 +562,7 @@ Article IV: Provides guidelines for dispute arbitration between overlapping juri
             {"name": "Registrar Faelin", "title": "Bureaucratic Syndicate"},
             {"name": "Captain Ironhook", "title": "Corsair Council"}
         ],
-        "seal": "🗂️🔖"
+        "seal": ""
     },
     {
         "id": "hat-protocol-declaration",
@@ -581,7 +581,7 @@ Clause 4: The Hat Registry will be maintained at the Council’s headquarters.""
         "signatories": [
             {"name": "Registrar Faelin", "title": "The Corsair Council"}
         ],
-        "seal": "🎩📜"
+        "seal": ""
     },
     {
         "id": "magical-seal-codex",
@@ -601,7 +601,7 @@ Section D: Procedures for seal revocation and renewal.""",
             {"name": "Archmage Thallis", "title": "Arcane Guild Council"},
             {"name": "Council Chairwoman Maelra", "title": "The Corsair Council"}
         ],
-        "seal": "🔮🕯️"
+        "seal": ""
     },
     {
         "id": "maritime-arbitration-pact",
@@ -621,7 +621,7 @@ Article IV: Violation of arbitration decisions will result in sanctions.""",
             {"name": "Captain Blackwing", "title": "Pirate Factions"},
             {"name": "Ambassador Lystra", "title": "Merchant States"}
         ],
-        "seal": "⚓️⚖️"
+        "seal": ""
     },
     {
         "id": "binding-oath-of-plunder",
@@ -641,7 +641,7 @@ Clause 4: The oath must be renewed upon change of crew leadership.""",
             {"name": "Captain Redbeard", "title": "Pirate Captains"},
             {"name": "Council Chairwoman Maelra", "title": "The Corsair Council"}
         ],
-        "seal": "🪓🛡️"
+        "seal": ""
     },
     {
         "id": "smugglers-amnesty-decree",
@@ -661,7 +661,7 @@ Section 4: Records of amnesty holders shall be maintained confidentially.""",
             {"name": "Registrar Faelin", "title": "The Corsair Council"},
             {"name": "Smuggler King Vrax", "title": "Smugglers' Coalition"}
         ],
-        "seal": "🗝️🚢"
+        "seal": ""
     },
     {
         "id": "embargo-directive",
@@ -680,7 +680,7 @@ Article IV: Sanctions may be lifted upon petition and review.""",
         "signatories": [
             {"name": "Council Chairwoman Maelra", "title": "The Corsair Council"}
         ],
-        "seal": "🚫⚓️"
+        "seal": ""
     },
     {
         "id": "curse-remission-act",
@@ -700,7 +700,7 @@ Clause 4: Remission certificates must be carried at all times.""",
             {"name": "Archmage Thallis", "title": "Arcane Guild Council"},
             {"name": "Registrar Faelin", "title": "The Corsair Council"}
         ],
-        "seal": "🧙‍♂️📜"
+        "seal": ""
     },
     {
         "id": "wreck-salvage-rights-agreement",
@@ -720,7 +720,7 @@ Article 4: Salvage profits are subject to taxation by the Council.""",
             {"name": "Commissioner Harlen", "title": "Council Salvage Commission"},
             {"name": "Captain Blackwing", "title": "Pirate Salvage Crews"}
         ],
-        "seal": "⚓️♻️"
+        "seal": ""
     },
     {
         "id": "duel-consent-form",
@@ -737,7 +737,7 @@ Clause 3: The loser waives all legal claims related to the duel.
 
 Clause 4: Council adjudication is final for disputes arising.""",
         "signatories": [],
-        "seal": "⚔️📜"
+        "seal": ""
     },
     {
         "id": "maritime-environmental-compliance-report",
@@ -754,7 +754,7 @@ Section 3: Violations incur penalties as outlined in the Treaty of Red Tape.
 
 Section 4: Compliance reports will be publicly accessible.""",
         "signatories": [],
-        "seal": "🌊♻️"
+        "seal": ""
     },
     {
         "id": "communications-treaty",
@@ -774,7 +774,7 @@ Article IV: The Council reserves the right to inspect communication devices.""",
             {"name": "Council Chairwoman Maelra", "title": "Corsair Council"},
             {"name": "Archmage Thallis", "title": "Arcane Guild Council"}
         ],
-        "seal": "📡🔮"
+        "seal": ""
     },
     {
         "id": "piratical-census-report",
@@ -793,7 +793,7 @@ Section 4: Census data is confidential and used for legal purposes only.""",
         "signatories": [
             {"name": "Registrar Faelin", "title": "The Corsair Council"}
         ],
-        "seal": "📋⚓️"
+        "seal": ""
     },
     {
         "id": "councils-legal-review-opinion",
@@ -810,7 +810,7 @@ Opinion 3: Advises on the enforcement of the Magical Seal Codex.""",
         "signatories": [
             {"name": "Council Chairwoman Maelra", "title": "The Corsair Council"}
         ],
-        "seal": "📖⚖️"
+        "seal": ""
     },
     {
         "id": "mutual-defense-compact",
@@ -829,7 +829,7 @@ Article 4: Disputes over obligations will be settled via Maritime Arbitration.""
         "signatories": [
             {"name": "Captain Blackwing", "title": "Pirate Factions"}
         ],
-        "seal": "🛡️⚓️"
+        "seal": ""
     },
     {
         "id": "embassies-establishment-charter",
@@ -849,7 +849,7 @@ Clause 4: Embassies must not interfere in host political affairs.""",
             {"name": "Council Chairwoman Maelra", "title": "Corsair Council"},
             {"name": "Ambassador Velmar", "title": "Foreign Powers"}
         ],
-        "seal": "🏛️🕊️"
+        "seal": ""
     }
 ]
 
