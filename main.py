@@ -29,7 +29,7 @@ ALLOWED_ROLE_IDS = {
 }
 
 # Your Minecraft server IP and port here:
-SERVER_IP = "your.minecraft.server.ip"  # e.g. "123.45.67.89"
+SERVER_IP = "driftofstars.mineserver.uno"  # e.g. "123.45.67.89"
 SERVER_PORT = 25565
 
 os.makedirs("uploaded_permit_files", exist_ok=True)
