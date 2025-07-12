@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Server Dashboard{% endblock %}
+
+{% block content %}
+<h1>Server Control Panel</h1>
+<p>Use the buttons below to control the TickHosting server.</p>
+
+<button onclick="sendCommand('start')">Start Server</button>
+<button onclick="sendCommand('stop')">Stop Server</button>
+
+<p id="status" style="margin-top: 1rem; font-weight: bold;"></p>
+
+<script>
+  async function sendCommand(command) {
+    try {
+      const res = await fetch(`/admin/server/${command}`, { method: 'POST' });
+      const text = await res.text();
+      document.getElementById("status").innerText = text;
+    } catch (err) {
+      document.getElementById("status").innerText = "An error occurred.";
+    }
+  }
+</script>
+{% endblock %}
