@@ -4,22 +4,33 @@
 
 {% block content %}
 <h1>Server Control Panel</h1>
-<p>Use the buttons below to control the TickHosting server.</p>
+<p>Minecraft Server Status:</p>
 
-<button onclick="sendCommand('start')">Start Server</button>
-<button onclick="sendCommand('stop')">Stop Server</button>
-
-<p id="status" style="margin-top: 1rem; font-weight: bold;"></p>
+<p id="status" style="margin-top: 1rem; font-weight: bold; font-size: 1.25rem;">
+  Checking...
+</p>
 
 <script>
-  async function sendCommand(command) {
+  async function fetchStatus() {
     try {
-      const res = await fetch(`/admin/server/${command}`, { method: 'POST' });
-      const text = await res.text();
-      document.getElementById("status").innerText = text;
+      const res = await fetch('/admin/server/status');
+      const data = await res.json();
+      const statusEl = document.getElementById('status');
+      if (data.status === 'Online') {
+        statusEl.innerText = "Online";
+        statusEl.style.color = "green";
+      } else {
+        statusEl.innerText = "Offline";
+        statusEl.style.color = "red";
+      }
     } catch (err) {
-      document.getElementById("status").innerText = "An error occurred.";
+      document.getElementById('status').innerText = "Failed to fetch status.";
+      document.getElementById('status').style.color = "gray";
     }
   }
+
+  // Fetch status immediately, then every 10 seconds
+  fetchStatus();
+  setInterval(fetchStatus, 10000);
 </script>
 {% endblock %}
