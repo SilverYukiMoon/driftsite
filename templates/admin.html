@@ -8,6 +8,23 @@
   <p>Logged in as: <strong>{{ user.username }}#{{ user.discriminator }}</strong></p>
   <a href="/logout" style="color: red; text-decoration: none;">Logout</a>
 
+  <!-- Added server control panel button -->
+  <p style="margin-top: 1rem;">
+    <a href="/admin/dashboard" 
+       style="
+         display: inline-block; 
+         background-color: #0b3d91; 
+         color: #cfa12b; 
+         padding: 0.5em 1em; 
+         border-radius: 5px; 
+         text-decoration: none; 
+         font-weight: bold;
+         font-family: 'Freebooter', cursive, serif;
+       ">
+      Open Server Control Panel
+    </a>
+  </p>
+
   {% if applications %}
     <ul style="list-style: none; padding: 0;">
       {% for app in applications %}
