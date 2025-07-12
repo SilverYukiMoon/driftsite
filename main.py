@@ -12,6 +12,7 @@ import os
 import json
 import uuid
 from dotenv import load_dotenv
+import socket
 
 load_dotenv()
 
@@ -26,6 +27,10 @@ ALLOWED_ROLE_IDS = {
     "1362205859215839322",
     "1362212187145506956"
 }
+
+# Your Minecraft server IP and port here:
+SERVER_IP = "your.minecraft.server.ip"  # e.g. "123.45.67.89"
+SERVER_PORT = 25565
 
 os.makedirs("uploaded_permit_files", exist_ok=True)
 
@@ -165,23 +170,19 @@ async def admin_dashboard(request: Request, user: dict = Depends(require_admin_r
         "user": user
     })
 
-@app.post("/admin/server/start", dependencies=[Depends(require_admin_roles)])
-async def start_server():
-    success = start_tickhosting_server()
-    return "Server started!" if success else "Failed to start server."
+# ----- New Server Status Endpoint -----
 
-@app.post("/admin/server/stop", dependencies=[Depends(require_admin_roles)])
-async def stop_server():
-    success = stop_tickhosting_server()
-    return "Server stopped!" if success else "Failed to stop server."
+def is_server_online(ip, port, timeout=2):
+    try:
+        with socket.create_connection((ip, port), timeout=timeout):
+            return True
+    except Exception:
+        return False
 
-def start_tickhosting_server():
-    print("Starting server... (replace with real logic)")
-    return True
-
-def stop_tickhosting_server():
-    print("Stopping server... (replace with real logic)")
-    return True
+@app.get("/admin/server/status")
+async def server_status(user: dict = Depends(require_admin_roles)):
+    online = is_server_online(SERVER_IP, SERVER_PORT)
+    return {"status": "Online" if online else "Offline"}
 
 # ----- Permit Submission -----
 
